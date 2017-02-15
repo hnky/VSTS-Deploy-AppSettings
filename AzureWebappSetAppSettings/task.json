@@ -1,0 +1,90 @@
+{
+  "id": "9d2e4cf0-f3bb-11e6-978b-770d284f4f2d",
+  "name": "AzureWebappSetAppSettings",
+  "friendlyName": "Azure Webapp - Set App settings",
+  "description": "Set the App Settings of a Azure Webapp",
+  "author": "Henk Boelman",
+  "helpMarkDown": "Replace with markdown to show in help",
+  "category": "Deploy",
+  "visibility": [
+    "Build",
+    "Release"
+  ],
+  "demands": [],
+  "version": {
+    "Major": "0",
+    "Minor": "2",
+    "Patch": "0"
+  },
+  "minimumAgentVersion": "1.95.0",
+  "instanceNameFormat": "Set AppSettings: $(message)",
+  "inputs": [
+     {
+      "name": "ConnectedServiceName",
+      "type": "connectedService:AzureRM",
+      "label": "AzureRM Subscription",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "Select the Azure Resource Manager subscription."
+    },
+    {
+      "name": "WebAppName",
+      "type": "pickList",
+      "label": "Web App Name",
+      "defaultValue": "",
+      "required": true,
+      "properties": {
+        "EditableOptions": "True"
+      },
+      "helpMarkDown": "Enter or Select the name of an existing AzureRM Web Application."
+    },
+    {
+      "name": "ResourceGroupName",
+      "type": "pickList",
+      "label": "Resource Group",
+      "defaultValue": "",
+      "required": true,
+      "properties": {
+        "EditableOptions": "True"
+      },
+      "helpMarkDown": "Enter or Select the Azure Resource Group that contains the AzureRM Web App specified above."
+    },    
+        {
+            "name": "AppSettings",
+            "type": "multiLine",
+            "label": "Inline Script",
+            "defaultValue": "'key1':'value1'\n'key2':'value2'",
+            "required": true,
+            "helpMarkDown": "",
+            "properties": {
+                "resizable": "true",
+                "rows": "10",
+                "maxLength": "500"
+            }
+}
+  ],
+  "dataSourceBindings": [
+    {
+      "target": "WebAppName",
+      "endpointId": "$(ConnectedServiceName)",
+      "dataSourceName": "AzureRMWebAppNames"
+    },
+    {
+      "target": "ResourceGroupName",
+      "endpointId": "$(ConnectedServiceName)",
+      "dataSourceName": "AzureRMWebAppResourceGroup",
+      "parameters": {
+        "WebAppName": "$(WebAppName)"
+      }
+    }
+  ],
+  
+  "execution": {
+    "AzurePowerShell": {
+      "target": "sample.ps1"
+    }
+  }
+}
+
+
+
