@@ -1,10 +1,10 @@
 {
   "id": "9d2e4cf0-f3bb-11e6-978b-770d284f4f2d",
-  "name": "AzureWebappSetAppSettings",
-  "friendlyName": "Azure Webapp - Set App settings",
-  "description": "Set the App Settings of a Azure Webapp",
+  "name": "AzureAppServiceSetAppSettings",
+  "friendlyName": "Azure App Service: Set App settings",
+  "description": "Set the App Settings of a Azure App Service",
   "author": "Henk Boelman (Ordina)",
-  "helpMarkDown": "Add settings to the App Settings of a WebApp",
+  "helpMarkDown": "Add settings to the App Settings of a Azure App Service",
   "category": "Deploy",
   "visibility": [
     "Release"
@@ -13,10 +13,10 @@
   "version": {
     "Major": "0",
     "Minor": "2",
-    "Patch": "3"
+    "Patch": "5"
   },
   "minimumAgentVersion": "1.95.0",
-  "instanceNameFormat": "Set AppSettings: $(message)",
+  "instanceNameFormat": "Set AppSettings: $(pickList)",
   "inputs": [
      {
       "name": "ConnectedServiceName",
@@ -29,13 +29,13 @@
     {
       "name": "WebAppName",
       "type": "pickList",
-      "label": "Web App Name",
+      "label": "Azure App Service",
       "defaultValue": "",
       "required": true,
       "properties": {
         "EditableOptions": "True"
       },
-      "helpMarkDown": "Name of the AzureRM WebApp."
+      "helpMarkDown": "Select the AzureRM App Service."
     },
     {
       "name": "ResourceGroupName",
@@ -46,7 +46,7 @@
       "properties": {
         "EditableOptions": "True"
       },
-      "helpMarkDown": "Select AzureRM Subscription that contains the AzureRM WebApp"
+      "helpMarkDown": "Select AzureRM Subscription that contains the AzureRM App Service"
     },    
     {
         "name": "AppSettings",
@@ -77,7 +77,6 @@
       }
     }
   ],
-  
   "execution": {
     "AzurePowerShell": {
       "target": "ApplyAppSettings.ps1"
