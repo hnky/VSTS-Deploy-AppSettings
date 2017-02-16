@@ -3,7 +3,7 @@
   "name": "AzureAppServiceSetAppSettings",
   "friendlyName": "Azure App Service: Set App settings",
   "description": "Set the App Settings of a Azure App Service",
-  "author": "Henk Boelman (Ordina)",
+  "author": "Henk Boelman",
   "helpMarkDown": "Add settings to the App Settings of a Azure App Service",
   "category": "Deploy",
   "visibility": [

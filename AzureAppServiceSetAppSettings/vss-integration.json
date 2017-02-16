@@ -1,0 +1,58 @@
+{
+    "manifestVersion": 1,
+    "id": "AzureAppServiceSetAppSettings",
+    "version": "0.2.5",
+    "name": "Azure App Service: Set App settings",
+    "publisher": "hboelman",
+    "description": "Add settings to the App Settings of a Azure App Service.",
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services.Integration"
+        }
+    ],    
+    "icons": {
+        "default": "images/logo_default.png"
+    },
+    "categories": [
+        "Build and release"
+    ],
+    "tags": [
+        "WebApp",
+        "WebJob",
+        "Settings",
+        "AppSettings",
+        "AppService",
+        "Configuration"
+    ],
+    "screenshots": [
+        {
+            "path": "images/screen1.jpg"
+        },
+        {
+            "path": "images/screen2.jpg"
+        }
+    ],
+    "content": {
+        "details": {
+            "path": "overview.md"
+        },
+        "license": {
+            "path": "license.txt"
+        }
+    },
+    "links": {
+        "getstarted": {
+            "uri": "https://github.com/hnky/vsts-deploy-appsettings"
+        },
+        "learn": {
+            "uri": "https://github.com/hnky/vsts-deploy-appsettings"
+        },
+        "support": {
+            "uri": "https://github.com/hnky/vsts-deploy-appsettings"
+        }
+    },
+    "branding": {
+        "color": "rgb(34, 34, 34)",
+        "theme": "dark"
+    }
+}

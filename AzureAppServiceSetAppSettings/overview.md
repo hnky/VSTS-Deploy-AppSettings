@@ -1,0 +1,1 @@
+This tasks makes it easy to add some App Settings to you Azure App Service.  
