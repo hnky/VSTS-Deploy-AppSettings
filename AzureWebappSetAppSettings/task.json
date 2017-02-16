@@ -3,11 +3,10 @@
   "name": "AzureWebappSetAppSettings",
   "friendlyName": "Azure Webapp - Set App settings",
   "description": "Set the App Settings of a Azure Webapp",
-  "author": "Henk Boelman",
-  "helpMarkDown": "Replace with markdown to show in help",
+  "author": "Henk Boelman (Ordina)",
+  "helpMarkDown": "Add settings to the App Settings of a WebApp",
   "category": "Deploy",
   "visibility": [
-    "Build",
     "Release"
   ],
   "demands": [],
@@ -25,7 +24,7 @@
       "label": "AzureRM Subscription",
       "defaultValue": "",
       "required": true,
-      "helpMarkDown": "Select the Azure Resource Manager subscription."
+      "helpMarkDown": "Select AzureRM Subscription"
     },
     {
       "name": "WebAppName",
@@ -36,7 +35,7 @@
       "properties": {
         "EditableOptions": "True"
       },
-      "helpMarkDown": "Enter or Select the name of an existing AzureRM Web Application."
+      "helpMarkDown": "Name of the AzureRM WebApp."
     },
     {
       "name": "ResourceGroupName",
@@ -47,21 +46,21 @@
       "properties": {
         "EditableOptions": "True"
       },
-      "helpMarkDown": "Enter or Select the Azure Resource Group that contains the AzureRM Web App specified above."
+      "helpMarkDown": "Select AzureRM Subscription that contains the AzureRM WebApp"
     },    
-        {
-            "name": "AppSettings",
-            "type": "multiLine",
-            "label": "Inline Script",
-            "defaultValue": "'key1':'value1'\n'key2':'value2'",
-            "required": true,
-            "helpMarkDown": "",
-            "properties": {
-                "resizable": "true",
-                "rows": "10",
-                "maxLength": "500"
-            }
-}
+    {
+        "name": "AppSettings",
+        "type": "multiLine",
+        "label": "Inline Script",
+        "defaultValue": "key1=value1'\nkey2=value2",
+        "required": true,
+        "helpMarkDown": "Add every App Setting on a seperated line. Key and value are seperated by =",
+        "properties": {
+            "resizable": "true",
+            "rows": "20",
+            "maxLength": "1500"
+        }
+    }
   ],
   "dataSourceBindings": [
     {
@@ -81,7 +80,7 @@
   
   "execution": {
     "AzurePowerShell": {
-      "target": "sample.ps1"
+      "target": "ApplyAppSettings.ps1"
     }
   }
 }
