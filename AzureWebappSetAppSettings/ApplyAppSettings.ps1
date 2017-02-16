@@ -16,20 +16,16 @@ param(
 # For more information on the VSTS Task SDK:
 # https://github.com/Microsoft/vsts-task-lib
 
-
 import-module "Microsoft.TeamFoundation.DistributedTask.Task.Internal"
 import-module "Microsoft.TeamFoundation.DistributedTask.Task.Common"
 
- 
-    Write-Host ($WebAppName)
-    Write-Host ($ResourceGroupName)
-    Write-Host ($AppSettings)
-
-
+Write-Host("=== START ===")
+Write-Host ("Webapp: " + $WebAppName)
+Write-Host ("Resourcegroup: " + $ResourceGroupName)
+Write-Host ("Appsettings: " + $AppSettings)
 
 $lines = $AppSettings.Replace("`r","").Split()
 Write-Host ("Lines found: " + $lines.Count)
-
 
 $activeAppSettings = Get-AzureRMWebApp -ResourceGroupName $ResourceGroupName -Name $WebAppName 
 $appSettingList = $activeAppSettings.SiteConfig.AppSettings
@@ -48,6 +44,4 @@ foreach ($keyValue in $lines) {
 }
 
 Set-AzureRMWebApp -ResourceGroupName $ResourceGroupName -Name $WebAppName -AppSettings $hash
-Write-Host("Done!!")
-    # Output the message to the log.
-
+Write-Host("=== DONE ===")
