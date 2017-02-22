@@ -33,14 +33,14 @@ $appSettingList = $activeAppSettings.SiteConfig.AppSettings
 $hash = @{}
 
 foreach ($kvp in $appSettingList) {
-    $hash[$kvp.Name] = $kvp.Value
+    $hash[$kvp.Name] = $kvp.Value.ToString()
     Write-Host ("Found - Key: " + $kvp.Name + " Value: " + $kvp.Value)
 }
 
 foreach ($keyValue in $lines) {
-	$key,$val = $keyValue.Split("=")
-    $hash[$key.Trim()] = $val.Trim()
-     Write-Host ("Adding - Key: " + $key + " Value: " + $val)
+	$key,$val = $keyValue.Split("'")
+    $hash[$key.ToString().Replace("=","").Trim()] = $val.ToString()
+     Write-Host ("Adding - Key: " + $key.Replace("=","")  + " Value: " + $val)
 }
 
 Set-AzureRMWebApp -ResourceGroupName $ResourceGroupName -Name $WebAppName -AppSettings $hash
