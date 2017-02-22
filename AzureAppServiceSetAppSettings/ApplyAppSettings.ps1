@@ -38,7 +38,7 @@ foreach ($kvp in $appSettingList) {
 }
 
 foreach ($keyValue in $lines) {
-	$key,$val = $keyValue.Split("'")
+	$key,$val,$leftover = $keyValue.Split("'")
     $hash[$key.ToString().Replace("=","").Trim()] = $val.ToString()
      Write-Host ("Adding - Key: " + $key.Replace("=","")  + " Value: " + $val)
 }
