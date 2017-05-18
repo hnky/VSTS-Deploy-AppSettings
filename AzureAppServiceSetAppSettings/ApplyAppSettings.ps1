@@ -38,9 +38,9 @@ foreach ($kvp in $appSettingList) {
 }
 
 foreach ($keyValue in $lines) {
-	$key,$val,$leftover = $keyValue.Split("'")
+    $key,$val,$leftover = $keyValue.Split("'")
     $hash[$key.ToString().Replace("=","").Trim()] = $val.ToString()
-     Write-Host ("Adding - Key: " + $key.Replace("=","")  + " Value: " + $val)
+    Write-Host ("Adding - Key: " + $key.Replace("=","")  + " Value: " + $val)
 }
 
 Set-AzureRMWebApp -ResourceGroupName $ResourceGroupName -Name $WebAppName -AppSettings $hash
