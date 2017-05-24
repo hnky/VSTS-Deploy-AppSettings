@@ -8,12 +8,12 @@ Add the task to you VSTS by clicking install. Next add the task to a deployment 
 ![image](/AzureAppServiceSetAppSettings/images/screen1.JPG)   
 
 In the task:
-* 1) Select your subscription
-* 2) Select the Azure App Service
-* 3) Select the resource group of your App Service
-* 4) Add a your App Settings in a simple key value interface.
+1) Select your subscription
+2) Select the Azure App Service
+3) Select the resource group of your App Service
+4) Add a your App Settings in a simple key value interface.
 
-The format is:
+The format is:  
 key1='value1'   
 key2='value2'
 
