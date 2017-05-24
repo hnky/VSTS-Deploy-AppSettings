@@ -13,7 +13,7 @@
   "version": {
     "Major": "1",
     "Minor": "0",
-    "Patch": "0"
+    "Patch": "1"
   },
   "minimumAgentVersion": "1.95.0",
   "instanceNameFormat": "Set AppSettings: $(pickList)",
@@ -51,7 +51,7 @@
     {
         "name": "AppSettings",
         "type": "multiLine",
-        "label": "Inline Script",
+        "label": "App Settings",
         "defaultValue": "key1='value1'\nkey2='value2'",
         "required": true,
         "helpMarkDown": "Add every App Setting on a seperated line. Key and value are seperated by = and the values enclosed by a singleqoute",
