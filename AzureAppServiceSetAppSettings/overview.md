@@ -5,7 +5,7 @@ This simple task allows you to set your App Settings on an Azure App Service lik
 ### Get started ###
 Add the task to you VSTS by clicking install. Next add the task to a deployment pipeline.   
 
-![image](/images/screen1.JPG)   
+![image](/AzureAppServiceSetAppSettings/images/screen1.JPG)   
 
 In the task:
 * 1) Select your subscription
@@ -17,5 +17,4 @@ The format is:
 key1='value1'   
 key2='value2'
 
-
-![image](/images/screen2.JPG)   
+![image](/AzureAppServiceSetAppSettings/images/screen2.JPG)   
