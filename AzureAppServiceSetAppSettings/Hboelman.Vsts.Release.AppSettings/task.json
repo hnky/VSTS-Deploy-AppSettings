@@ -4,16 +4,16 @@
   "friendlyName": "Azure App Service: Set App settings",
   "description": "Set the App Settings of a Azure App Service",
   "author": "Henk Boelman",
-  "helpMarkDown": "Add settings to the App Settings of a Azure App Service",
+  "helpMarkDown": "[Read my blog for more Information](https://www.henkboelman.com/2017/vsts-task-to-set-app-settings-during-deploy)",
   "category": "Deploy",
   "visibility": [
     "Release"
   ],
  "demands": [ "azureps" ],
   "version": {
-    "Major": "0",
-    "Minor": "3",
-    "Patch": "2"
+    "Major": "1",
+    "Minor": "0",
+    "Patch": "0"
   },
   "minimumAgentVersion": "1.95.0",
   "instanceNameFormat": "Set AppSettings: $(pickList)",
