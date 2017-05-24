@@ -2,6 +2,8 @@
 
 This simple task allows you to set your App Settings on an Azure App Service like a Web App or API App in one simple task.
 
+It is perfect in a setup where you have multiple webapps with the same settingsname and different values. 
+
 ### Get started ###
 Add the task to you VSTS by clicking install. Next add the task to a deployment pipeline.   
 
@@ -18,3 +20,10 @@ key1='value1'
 key2='value2'
 
 ![image](https://github.com/hnky/vsts-deploy-appsettings/blob/master/AzureAppServiceSetAppSettings/images/screen2.JPG)   
+
+### Support ###
+Need any support or it is not working, please create a Issue on Github.   
+
+Happy deploying   
+
+Henk Boelman
