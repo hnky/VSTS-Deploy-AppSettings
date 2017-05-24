@@ -9,11 +9,11 @@
   "visibility": [
     "Release"
   ],
-  "demands": [],
+ "demands": [ "azureps" ],
   "version": {
     "Major": "0",
     "Minor": "3",
-    "Patch": "1"
+    "Patch": "2"
   },
   "minimumAgentVersion": "1.95.0",
   "instanceNameFormat": "Set AppSettings: $(pickList)",
@@ -52,9 +52,9 @@
         "name": "AppSettings",
         "type": "multiLine",
         "label": "Inline Script",
-        "defaultValue": "key1=value1'\nkey2=value2",
+        "defaultValue": "key1='value1'\nkey2='value2'",
         "required": true,
-        "helpMarkDown": "Add every App Setting on a seperated line. Key and value are seperated by =",
+        "helpMarkDown": "Add every App Setting on a seperated line. Key and value are seperated by = and the values enclosed by a singleqoute",
         "properties": {
             "resizable": "true",
             "rows": "20",
