@@ -7,7 +7,7 @@ It is perfect in a setup where you have multiple webapps with the same settingsn
 ### Get started ###
 Add the task to you VSTS by clicking install. Next add the task to a deployment pipeline.   
 
-![image](https://raw.githubusercontent.com/hnky/VSTS-Deploy-AppSettings/master/AzureAppServiceSetAppSettings/images/screen1.jpg)   
+![image](https://raw.githubusercontent.com/hnky/VSTS-Deploy-AppSettings/master/AzureAppServiceSetAppSettings/images/screen1.JPG)   
 
 In the task:
 1) Select your subscription
