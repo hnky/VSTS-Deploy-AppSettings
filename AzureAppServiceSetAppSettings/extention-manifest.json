@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
     "id": "AzureAppServiceSetAppSettings",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "name": "Azure App Service: Set App settings",
     "publisher": "hboelman",
     "description": "Add settings to the App Settings of a Azure App Service.",
