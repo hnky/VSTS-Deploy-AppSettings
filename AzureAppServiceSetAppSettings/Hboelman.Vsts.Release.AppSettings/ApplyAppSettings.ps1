@@ -5,12 +5,15 @@ param(
 
     [String] [Parameter(Mandatory = $true)]
     $WebAppName,
-
+    
     [String] [Parameter(Mandatory = $true)]
     $ResourceGroupName,
 
-    [String] [Parameter(Mandatory = $true)]
-    $AppSettings
+    [String]
+    $AppSettings = "",
+
+    [String]
+    $ConnectionStrings = ""
 )
 
 # For more information on the VSTS Task SDK:
@@ -21,27 +24,46 @@ import-module "Microsoft.TeamFoundation.DistributedTask.Task.Common"
 
 Write-Host("=== START ===")
 Write-Host ("Webapp: " + $WebAppName)
-Write-Host ("Resourcegroup: " + $ResourceGroupName)
 Write-Host ("Appsettings: " + $AppSettings)
+Write-Host ("Connectionstrings: " + $ConnectionStrings)
 
-$lines = $AppSettings.Replace("`r","").Split()
+$seperator = [Environment]::NewLine
+$splitOption = [System.StringSplitOptions]::RemoveEmptyEntries
+
+$appSettingsLines = $AppSettings.Split($seperator, $splitOption)
+$connStringLines = $ConnectionStrings.Split($seperator, $splitOption)
+$lines = $appSettingsLines.Length + $connStringLines.Length
 Write-Host ("Lines found: " + $lines.Count)
 
-$activeAppSettings = Get-AzureRMWebApp -ResourceGroupName $ResourceGroupName -Name $WebAppName 
-$appSettingList = $activeAppSettings.SiteConfig.AppSettings
+$webApp = Get-AzureRMWebApp -Name $WebAppName -ResourceGroupName $ResourceGroupName
+$appSettingList = $WebApp.SiteConfig.AppSettings
+$connStringList = $WebApp.SiteConfig.Connectionstrings
 
-$hash = @{}
+$appSettingHash = @{}
 
 foreach ($kvp in $appSettingList) {
-    $hash[$kvp.Name] = $kvp.Value.ToString()
+    $appSettingHash[$kvp.Name] = $kvp.Value.ToString()
     Write-Host ("Found - Key: " + $kvp.Name + " Value: " + $kvp.Value)
 }
 
-foreach ($keyValue in $lines) {
-    $key,$val,$leftover = $keyValue.Split("'")
-    $hash[$key.ToString().Replace("=","").Trim()] = $val.ToString()
+foreach ($keyValue in $appSettingsLines) {
+    $key,$val = $keyValue.Split("'", $splitOption)
+    $appSettingHash[$key.ToString().Replace("=","").Trim()] = $val
     Write-Host ("Adding - Key: " + $key.Replace("=","")  + " Value: " + $val)
 }
 
-Set-AzureRMWebApp -ResourceGroupName $ResourceGroupName -Name $WebAppName -AppSettings $hash
+$connStringHash = @{}
+
+foreach ($kvp in $connStringList) {
+    $connStringHash[$kvp.Name] = @{"Value"=$kvp.ConnectionString.ToString();"Type"=$kvp.Type.ToString()} 
+    Write-Host ("Found - Key: " + $kvp.Name + " Value: " + $kvp.ConnectionString)
+}
+
+foreach ($keyValue in $connStringLines) {
+    $key,$val,$type = $keyValue.Split("'", $splitOption)
+    $connStringHash[$key.ToString().Replace("=","").Trim()] = @{"Value"=$val;"Type"=$type}
+    Write-Host ("Adding - Key: " + $key.Replace("=","")  + " Value: " + $val + " Type" + $type)
+}
+
+Set-AzureRMWebApp -Name $WebAppName -ResourceGroupName $ResourceGroupName -AppSettings $appSettingHash -ConnectionStrings $connStringHash
 Write-Host("=== DONE ===")
