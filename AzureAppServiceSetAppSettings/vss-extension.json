@@ -4,7 +4,7 @@
     "version": "1.0.6",
     "name": "Azure App Service: Set App settings",
     "publisher": "hboelman",
-    "description": "Add settings to the App Settings of a Azure App Service.",
+    "description": "Add settings to the App Settings of an Azure App Service.",
     "targets": [{
         "id": "Microsoft.VisualStudio.Services"
     }],
@@ -57,18 +57,31 @@
         "theme": "dark"
     },
     "files": [{
-            "path": "Hboelman.Vsts.Release.AppSettings"
+            "path": "Tasks/AppSettings"
+        },
+        {
+            "path": "Tasks/ConnectionStrings"
         }
-
     ],
     "contributions": [{
-        "id": "Hboelman-Vsts-Release-AppSettings",
-        "type": "ms.vss-distributed-task.task",
-        "targets": [
-            "ms.vss-distributed-task.tasks"
-        ],
-        "properties": {
-            "name": "Hboelman.Vsts.Release.AppSettings"
+            "id": "Hboelman-Vsts-Release-AppSettings",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "Tasks/AppSettings"
+            }
+        },
+        {
+            "id": "Hboelman-Vsts-Release-ConnectionStrings",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "Tasks/ConnectionStrings"
+            }
         }
-    }]
+    ]
 }

@@ -16,7 +16,7 @@
         "Patch": "6"
     },
     "minimumAgentVersion": "1.95.0",
-    "instanceNameFormat": "Set AppSettings: $(pickList)",
+    "instanceNameFormat": "Set App Settings: $(pickList)",
     "inputs": [{
             "name": "ConnectedServiceName",
             "type": "connectedService:AzureRM",
@@ -52,20 +52,8 @@
             "type": "multiLine",
             "label": "App Settings",
             "defaultValue": "key1='value1'\nkey2='value2'",
-            "required": false,
+            "required": true,
             "helpMarkDown": "Add every App Setting on a seperated line. Key and value are seperated by = and the values enclosed by a singleqoute",
-            "properties": {
-                "resizable": "true",
-                "rows": "20"
-            }
-        },
-        {
-            "name": "ConnectionStrings",
-            "type": "multiLine",
-            "label": "Connection Strings",
-            "defaultValue": "key1='value1''type'\nkey2='value2''type'",
-            "required": false,
-            "helpMarkDown": "Add every Connection String on a seperated line. Key and value are seperated by = and the values and connection string types enclosed by a singleqoute",
             "properties": {
                 "resizable": "true",
                 "rows": "20"
