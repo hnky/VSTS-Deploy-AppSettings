@@ -5,7 +5,7 @@ param(
 
     [String] [Parameter(Mandatory = $true)]
     $WebAppName,
-
+    
     [String] [Parameter(Mandatory = $true)]
     $ResourceGroupName,
 
@@ -21,14 +21,16 @@ import-module "Microsoft.TeamFoundation.DistributedTask.Task.Common"
 
 Write-Host("=== START ===")
 Write-Host ("Webapp: " + $WebAppName)
-Write-Host ("Resourcegroup: " + $ResourceGroupName)
 Write-Host ("Appsettings: " + $AppSettings)
 
-$lines = $AppSettings.Replace("`r","").Split()
+$seperator = [Environment]::NewLine
+$splitOption = [System.StringSplitOptions]::RemoveEmptyEntries
+
+$lines = $AppSettings.Split($seperator, $splitOption)
 Write-Host ("Lines found: " + $lines.Count)
 
-$activeAppSettings = Get-AzureRMWebApp -ResourceGroupName $ResourceGroupName -Name $WebAppName 
-$appSettingList = $activeAppSettings.SiteConfig.AppSettings
+$webApp = Get-AzureRMWebApp -Name $WebAppName -ResourceGroupName $ResourceGroupName
+$appSettingList = $WebApp.SiteConfig.AppSettings
 
 $hash = @{}
 
@@ -38,10 +40,10 @@ foreach ($kvp in $appSettingList) {
 }
 
 foreach ($keyValue in $lines) {
-    $key,$val,$leftover = $keyValue.Split("'")
-    $hash[$key.ToString().Replace("=","").Trim()] = $val.ToString()
+    $key,$val = $keyValue.Split("'", $splitOption)
+    $hash[$key.ToString().Replace("=","").Trim()] = $val
     Write-Host ("Adding - Key: " + $key.Replace("=","")  + " Value: " + $val)
 }
 
-Set-AzureRMWebApp -ResourceGroupName $ResourceGroupName -Name $WebAppName -AppSettings $hash
+Set-AzureRMWebApp -Name $WebAppName -ResourceGroupName $ResourceGroupName -AppSettings $hash
 Write-Host("=== DONE ===")
