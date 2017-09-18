@@ -9,5 +9,5 @@ This extentions allows VSTS users to easily set App Settings on their Azure WebA
 [Market place](https://marketplace.visualstudio.com/items?itemName=hboelman.AzureAppServiceSetAppSettings)
 
 ## Create the Extension
-tfx extension create --manifest-globs vss-integration.json
+tfx extension create --manifest-globs vss-extension.json
 
