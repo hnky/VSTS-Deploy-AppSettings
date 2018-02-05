@@ -91,7 +91,8 @@
             "parameters": {
                 "ResourceGroupName": "$(ResourceGroupName)",
                 "WebAppName": "$(WebAppName)"
-            }
+            },
+            "resultTemplate": "{\"Value\":\"{{{ #extractResource slots}}}\",\"DisplayValue\":\"{{{ #extractResource slots}}}\"}"
         }
     ],
     "execution": {
