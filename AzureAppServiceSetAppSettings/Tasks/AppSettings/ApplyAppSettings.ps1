@@ -9,6 +9,9 @@ param(
     [String] [Parameter(Mandatory = $true)]
     $ResourceGroupName,
 
+    [String] [Parameter(Mandatory = $false)]
+    $Slot,
+
     [String] [Parameter(Mandatory = $true)]
     $AppSettings
 )
@@ -19,8 +22,12 @@ param(
 import-module "Microsoft.TeamFoundation.DistributedTask.Task.Internal"
 import-module "Microsoft.TeamFoundation.DistributedTask.Task.Common"
 
+$useSlot = $Slot -ne ""
+$slotLabel = If ($useSlot) { $Slot } Else { "<none>" }
+
 Write-Host("=== START ===")
 Write-Host ("Webapp: " + $WebAppName)
+Write-Host ("Slot: " + $slotLabel)
 Write-Host ("Appsettings: " + $AppSettings)
 
 $seperator = [Environment]::NewLine
@@ -29,7 +36,11 @@ $splitOption = [System.StringSplitOptions]::RemoveEmptyEntries
 $lines = $AppSettings.Split($seperator, $splitOption)
 Write-Host ("Lines found: " + $lines.Count)
 
-$webApp = Get-AzureRMWebApp -Name $WebAppName -ResourceGroupName $ResourceGroupName
+$webApp = If ($useSlot) {
+    Get-AzureRMWebAppSlot -Name $WebAppName -ResourceGroupName $ResourceGroupName -Slot $Slot
+} Else { 
+    Get-AzureRMWebApp -Name $WebAppName -ResourceGroupName $ResourceGroupName
+}
 $appSettingList = $WebApp.SiteConfig.AppSettings
 
 $hash = @{}
@@ -45,5 +56,9 @@ foreach ($keyValue in $lines) {
     Write-Host ("Adding - Key: " + $key.Replace("=","")  + " Value: " + $val)
 }
 
-Set-AzureRMWebApp -Name $WebAppName -ResourceGroupName $ResourceGroupName -AppSettings $hash
+If ($useSlot) {
+    Set-AzureRMWebAppSlot -Name $WebAppName -ResourceGroupName $ResourceGroupName -Slot $Slot -AppSettings $hash
+} Else {
+    Set-AzureRMWebApp -Name $WebAppName -ResourceGroupName $ResourceGroupName -AppSettings $hash
+}
 Write-Host("=== DONE ===")
