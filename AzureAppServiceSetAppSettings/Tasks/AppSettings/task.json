@@ -56,7 +56,7 @@
             "properties": {
                 "EditableOptions": "True"
             },
-            "helpMarkDown": "Select the Slot."
+            "helpMarkDown": "Select the slot to configure, or leave empty to use the default, production slot."
         },
         {
             "name": "AppSettings",
