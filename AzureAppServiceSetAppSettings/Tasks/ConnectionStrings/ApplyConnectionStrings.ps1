@@ -10,7 +10,7 @@ param(
     $ResourceGroupName,
 
     [String] [Parameter(Mandatory = $false)]
-    $Slot,
+    $Slot = "",
     
     [String] [Parameter(Mandatory = $true)]
     $ConnectionStrings
@@ -22,12 +22,13 @@ param(
 import-module "Microsoft.TeamFoundation.DistributedTask.Task.Internal"
 import-module "Microsoft.TeamFoundation.DistributedTask.Task.Common"
 
-$useSlot = $Slot -ne ""
-$slotLabel = If ($useSlot) { $Slot } Else { "<none>" }
+If ($Slot -eq "") {
+    $Slot = "production"
+}
 
 Write-Host("=== START ===")
 Write-Host ("Webapp: " + $WebAppName)
-Write-Host ("Slot: " + $slotLabel)
+Write-Host ("Slot: " + $Slot)
 Write-Host ("Connectionstrings: " + $ConnectionStrings)
 
 $seperator = [Environment]::NewLine
@@ -36,12 +37,8 @@ $splitOption = [System.StringSplitOptions]::RemoveEmptyEntries
 $lines = $ConnectionStrings.Split($seperator, $splitOption)
 Write-Host ("Lines found: " + $lines.Count)
 
-$webApp = If ($useSlot) {
-    Get-AzureRMWebAppSlot -Name $WebAppName -ResourceGroupName $ResourceGroupName -Slot $Slot
-} Else { 
-    Get-AzureRMWebApp -Name $WebAppName -ResourceGroupName $ResourceGroupName
-}
-$connectionStringList = $WebApp.SiteConfig.Connectionstrings
+$webApp = Get-AzureRMWebAppSlot -Name $WebAppName -ResourceGroupName $ResourceGroupName -Slot $Slot
+$connectionStringList = $webApp.SiteConfig.Connectionstrings
 
 $hash = @{}
 
@@ -56,9 +53,6 @@ foreach ($keyValue in $lines) {
     Write-Host ("Adding - Key: " + $key.Replace("=","")  + " Value: " + $val + " Type" + $type)
 }
 
-If ($useSlot) {
-    Set-AzureRMWebAppSlot -Name $WebAppName -ResourceGroupName $ResourceGroupName -Slot $Slot -ConnectionStrings $hash
-} Else {
-    Set-AzureRMWebApp -Name $WebAppName -ResourceGroupName $ResourceGroupName -ConnectionStrings $hash
-}
+Set-AzureRMWebAppSlot -Name $WebAppName -ResourceGroupName $ResourceGroupName -Slot $Slot -ConnectionStrings $hash
+
 Write-Host("=== DONE ===")
