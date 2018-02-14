@@ -48,6 +48,17 @@
             "helpMarkDown": "Select AzureRM Resource Group that contains the AzureRM App Service"
         },
         {
+            "name": "Slot",
+            "type": "pickList",
+            "label": "Slot",
+            "defaultValue": "",
+            "required": false,
+            "properties": {
+                "EditableOptions": "True"
+            },
+            "helpMarkDown": "Select the slot to configure, or leave empty to use the default, production slot."
+        },
+        {
             "name": "AppSettings",
             "type": "multiLine",
             "label": "App Settings",
@@ -72,6 +83,16 @@
             "parameters": {
                 "WebAppName": "$(WebAppName)"
             }
+        },
+        {
+            "target": "Slot",
+            "endpointId": "$(ConnectedServiceName)",
+            "dataSourceName": "AzureRMWebAppSlotsId",
+            "parameters": {
+                "ResourceGroupName": "$(ResourceGroupName)",
+                "WebAppName": "$(WebAppName)"
+            },
+            "resultTemplate": "{\"Value\":\"{{{ #extractResource slots}}}\",\"DisplayValue\":\"{{{ #extractResource slots}}}\"}"
         }
     ],
     "execution": {
