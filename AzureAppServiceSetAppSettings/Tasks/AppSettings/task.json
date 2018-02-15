@@ -11,9 +11,9 @@
     ],
     "demands": ["azureps"],
     "version": {
-        "Major": "1",
+        "Major": "2",
         "Minor": "0",
-        "Patch": "6"
+        "Patch": "0"
     },
     "minimumAgentVersion": "1.95.0",
     "instanceNameFormat": "Set App Settings: $(pickList)",
