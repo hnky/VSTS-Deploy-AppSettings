@@ -59,6 +59,18 @@
             "helpMarkDown": "Select the slot to configure, or leave empty to use the default, production slot."
         },
         {
+            "name": "InputType",
+            "type": "radio",
+            "label": "Input Type",
+            "required": false,
+            "helpMarkDown": "Type of app settings pit: File Path or Multiline",
+            "defaultValue": "Multiline",
+            "options": {
+                "FilePath": "File Path",
+                "Multiline": "Multiline"
+            }
+        },
+        {
             "name": "AppSettings",
             "type": "multiLine",
             "label": "App Settings",
@@ -68,7 +80,17 @@
             "properties": {
                 "resizable": "true",
                 "rows": "20"
-            }
+            },
+            "visibleRule": "InputType = Multiline"
+        },
+        {
+            "name": "AppSettingsFilePath",
+            "type": "filePath",
+            "label": "App Settings File Path",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "File containing every App Setting on a seperated line. Key and value are seperated by = and the values enclosed by a singleqoute",
+            "visibleRule": "InputType = FilePath"
         }
     ],
     "dataSourceBindings": [{

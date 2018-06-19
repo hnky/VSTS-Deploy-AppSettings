@@ -12,8 +12,14 @@ param(
     [String] [Parameter(Mandatory = $false)]
     $Slot = "",
 
-    [String] [Parameter(Mandatory = $true)]
-    $AppSettings
+    [String] [Parameter(Mandatory = $false)]
+    $InputType,
+
+    [String] [Parameter(Mandatory = $true, ParameterSetName = "Multiline")]
+    $AppSettings,
+
+    [String] [Parameter(Mandatory = $true, ParameterSetName = "Filepath")]
+    $AppSettingsFilePath
 )
 
 # For more information on the VSTS Task SDK:
@@ -26,10 +32,12 @@ If ($Slot -eq "") {
     $Slot = "production"
 }
 
-Write-Host("=== START ===")
+Write-Host ("=== START ===")
+Write-Host ("Input type: " + $InputType)
 Write-Host ("Webapp: " + $WebAppName)
 Write-Host ("Slot: " + $Slot)
 Write-Host ("Appsettings: " + $AppSettings)
+Write-Host ("AppSettingsFilePath: " + $AppSettingsFilePath)
 
 $seperator = [Environment]::NewLine
 $splitOption = [System.StringSplitOptions]::RemoveEmptyEntries
@@ -48,9 +56,9 @@ foreach ($kvp in $appSettingList) {
 }
 
 foreach ($keyValue in $lines) {
-    $key,$val = $keyValue.Split("'", $splitOption)
-    $hash[$key.ToString().Replace("=","").Trim()] = $val
-    Write-Host ("Adding - Key: " + $key.Replace("=","")  + " Value: " + $val)
+    $key, $val = $keyValue.Split("'", $splitOption)
+    $hash[$key.ToString().Replace("=", "").Trim()] = $val
+    Write-Host ("Adding - Key: " + $key.Replace("=", "") + " Value: " + $val)
 }
 
 Set-AzureRMWebAppSlot -Name $WebAppName -ResourceGroupName $ResourceGroupName -Slot $Slot -AppSettings $hash
