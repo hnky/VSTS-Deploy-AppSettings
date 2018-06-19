@@ -1,13 +1,13 @@
 {
     "manifestVersion": 1,
     "id": "AzureAppServiceSetAppSettings",
-    "version": "2.0.0",
+    "version": "3.0.0",
     "name": "Azure App Service: Set App settings",
     "publisher": "hboelman",
     "description": "Add settings to the App Settings of an Azure App Service.",
     "targets": [{
-        "id": "Microsoft.VisualStudio.Services"
-    }],
+            "id": "Microsoft.VisualStudio.Services"
+        }],
     "demands": [
         "api-version/3.0",
         "contribution/ms.vss-dashboards-web.widget-catalog"
@@ -31,8 +31,8 @@
         "Public"
     ],
     "screenshots": [{
-        "path": "images/screen1.JPG"
-    }],
+            "path": "images/screen1.JPG"
+        }],
     "content": {
         "details": {
             "path": "overview.md"

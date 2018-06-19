@@ -11,9 +11,15 @@ param(
 
     [String] [Parameter(Mandatory = $false)]
     $Slot = "",
+
+    [String] [Parameter(Mandatory = $false)]
+    $InputType,
     
-    [String] [Parameter(Mandatory = $true)]
-    $ConnectionStrings
+    [String] [Parameter(Mandatory = $false)]
+    $ConnectionStrings,
+
+    [String] [Parameter(Mandatory = $false)]
+    $ConnectionStringsFilePath
 )
 
 # For more information on the VSTS Task SDK:
@@ -29,6 +35,15 @@ If ($Slot -eq "") {
 Write-Host("=== START ===")
 Write-Host ("Webapp: " + $WebAppName)
 Write-Host ("Slot: " + $Slot)
+
+if ($InputType -eq "FilePath") { 
+    Write-Host ("ConnectionStringsFilePath: " + $ConnectionStringsFilePath)
+    if (!(Test-Path -LiteralPath $ConnectionStringsFilePath -PathType Leaf)) {
+        throw "File `"$ConnectionStringsFilePath`" could not be found"
+    }
+    $ConnectionStrings = Get-Content -Path $ConnectionStringsFilePath -Raw
+}
+
 Write-Host ("Connectionstrings: " + $ConnectionStrings)
 
 $seperator = [Environment]::NewLine
@@ -43,14 +58,14 @@ $connectionStringList = $webApp.SiteConfig.Connectionstrings
 $hash = @{}
 
 foreach ($kvp in $connectionStringList) {
-    $hash[$kvp.Name] = @{"Value"=$kvp.ConnectionString.ToString();"Type"=$kvp.Type.ToString()} 
+    $hash[$kvp.Name] = @{"Value" = $kvp.ConnectionString.ToString(); "Type" = $kvp.Type.ToString()} 
     Write-Host ("Found - Key: " + $kvp.Name + " Value: " + $kvp.ConnectionString)
 }
 
 foreach ($keyValue in $lines) {
-    $key,$val,$type = $keyValue.Split("'", $splitOption)
-    $hash[$key.ToString().Replace("=","").Trim()] = @{"Value"=$val;"Type"=$type}
-    Write-Host ("Adding - Key: " + $key.Replace("=","")  + " Value: " + $val + " Type" + $type)
+    $key, $val, $type = $keyValue.Split("'", $splitOption)
+    $hash[$key.ToString().Replace("=", "").Trim()] = @{"Value" = $val; "Type" = $type}
+    Write-Host ("Adding - Key: " + $key.Replace("=", "") + " Value: " + $val + " Type" + $type)
 }
 
 Set-AzureRMWebAppSlot -Name $WebAppName -ResourceGroupName $ResourceGroupName -Slot $Slot -ConnectionStrings $hash

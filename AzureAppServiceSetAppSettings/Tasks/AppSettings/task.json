@@ -11,7 +11,7 @@
     ],
     "demands": ["azureps"],
     "version": {
-        "Major": "2",
+        "Major": "3",
         "Minor": "0",
         "Patch": "0"
     },
@@ -66,8 +66,8 @@
             "helpMarkDown": "Type of app settings pit: File Path or Multiline",
             "defaultValue": "Multiline",
             "options": {
-                "FilePath": "File Path",
-                "Multiline": "Multiline"
+                "Multiline": "Multiline",
+                "FilePath": "File Path"
             }
         },
         {
@@ -75,7 +75,7 @@
             "type": "multiLine",
             "label": "App Settings",
             "defaultValue": "key1='value1'\nkey2='value2'",
-            "required": true,
+            "required": false,
             "helpMarkDown": "Add every App Setting on a seperated line. Key and value are seperated by = and the values enclosed by a singleqoute",
             "properties": {
                 "resizable": "true",

@@ -15,10 +15,10 @@ param(
     [String] [Parameter(Mandatory = $false)]
     $InputType,
 
-    [String] [Parameter(Mandatory = $true, ParameterSetName = "Multiline")]
+    [String] [Parameter(Mandatory = $false)]
     $AppSettings,
 
-    [String] [Parameter(Mandatory = $true, ParameterSetName = "Filepath")]
+    [String] [Parameter(Mandatory = $false)]
     $AppSettingsFilePath
 )
 
@@ -33,11 +33,19 @@ If ($Slot -eq "") {
 }
 
 Write-Host ("=== START ===")
-Write-Host ("Input type: " + $InputType)
 Write-Host ("Webapp: " + $WebAppName)
 Write-Host ("Slot: " + $Slot)
+
+if ($InputType -eq "FilePath") { 
+    Write-Host ("AppSettingsFilePath: " + $AppSettingsFilePath)
+    if (!(Test-Path -LiteralPath $AppSettingsFilePath -PathType Leaf)) {
+        throw "File `"$AppSettingsFilePath`" could not be found"
+    }
+    $AppSettings = Get-Content -Path $AppSettingsFilePath -Raw
+}
+
 Write-Host ("Appsettings: " + $AppSettings)
-Write-Host ("AppSettingsFilePath: " + $AppSettingsFilePath)
+
 
 $seperator = [Environment]::NewLine
 $splitOption = [System.StringSplitOptions]::RemoveEmptyEntries

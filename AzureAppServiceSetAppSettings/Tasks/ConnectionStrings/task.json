@@ -9,15 +9,18 @@
     "visibility": [
         "Release"
     ],
-    "demands": ["azureps"],
+    "demands": [
+        "azureps"
+    ],
     "version": {
-        "Major": "2",
+        "Major": "3",
         "Minor": "0",
         "Patch": "0"
     },
     "minimumAgentVersion": "1.95.0",
     "instanceNameFormat": "Set Connection Strings: $(pickList)",
-    "inputs": [{
+    "inputs": [
+        {
             "name": "ConnectedServiceName",
             "type": "connectedService:AzureRM",
             "label": "AzureRM Subscription",
@@ -59,19 +62,42 @@
             "helpMarkDown": "Select the slot to configure, or leave empty to use the default, production slot."
         },
         {
+            "name": "InputType",
+            "type": "radio",
+            "label": "Input Type",
+            "required": false,
+            "helpMarkDown": "Type of app settings pit: File Path or Multiline",
+            "defaultValue": "Multiline",
+            "options": {
+                "Multiline": "Multiline",
+                "FilePath": "File Path"
+            }
+        },
+        {
             "name": "ConnectionStrings",
             "type": "multiLine",
             "label": "Connection Strings",
             "defaultValue": "key1='value1''type1'\nkey2='value2''type2'",
-            "required": true,
-            "helpMarkDown": "Add every Connection String on a seperated line. Key and value are seperated by = and the values and Connection String types enclosed by a singleqoute",
+            "required": false,
+            "helpMarkDown": "Add every Connection String on a seperated line. Key and value are seperated by = and the values and Connection String types enclosed by a singlequote",
             "properties": {
                 "resizable": "true",
                 "rows": "20"
-            }
+            },
+            "visibleRule": "InputType = Multiline"
+        },
+        {
+            "name": "ConnectionStringsFilePath",
+            "type": "filePath",
+            "label": "Connection Strings File Path",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "File containing every Connection String on a seperated line. Key and value are seperated by = and the values and Connection String types enclosed by a singlequote",
+            "visibleRule": "InputType = FilePath"
         }
     ],
-    "dataSourceBindings": [{
+    "dataSourceBindings": [
+        {
             "target": "WebAppName",
             "endpointId": "$(ConnectedServiceName)",
             "dataSourceName": "AzureRMWebAppNames"
