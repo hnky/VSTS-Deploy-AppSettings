@@ -9,9 +9,7 @@
     "visibility": [
         "Release"
     ],
-    "demands": [
-        "azureps"
-    ],
+    "demands": ["azureps"],
     "version": {
         "Major": "3",
         "Minor": "0",
@@ -19,8 +17,7 @@
     },
     "minimumAgentVersion": "1.95.0",
     "instanceNameFormat": "Set Connection Strings: $(pickList)",
-    "inputs": [
-        {
+    "inputs": [{
             "name": "ConnectedServiceName",
             "type": "connectedService:AzureRM",
             "label": "AzureRM Subscription",
@@ -96,8 +93,7 @@
             "visibleRule": "InputType = FilePath"
         }
     ],
-    "dataSourceBindings": [
-        {
+    "dataSourceBindings": [{
             "target": "WebAppName",
             "endpointId": "$(ConnectedServiceName)",
             "dataSourceName": "AzureRMWebAppNames"
