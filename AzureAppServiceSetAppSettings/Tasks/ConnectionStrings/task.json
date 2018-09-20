@@ -96,7 +96,7 @@
         }
     ],
     "execution": {
-        "AzurePowerShell": {
+        "PowerShell": {
             "target": "ApplyConnectionStrings.ps1"
         }
     }

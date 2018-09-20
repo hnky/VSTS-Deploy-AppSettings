@@ -96,7 +96,7 @@
         }
     ],
     "execution": {
-        "AzurePowerShell": {
+        "PowerShell": {
             "target": "ApplyAppSettings.ps1"
         }
     }
