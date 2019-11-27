@@ -1,3 +1,5 @@
+*Don't use this task anymore, use the build in app settings from the MS web deploy task*
+
 # VSTS Task - Deploy Appsettings
 
 This extentions allows VSTS users to easily set App Settings on their Azure WebApps during deployment.
